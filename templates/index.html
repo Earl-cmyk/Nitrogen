@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nitrogen</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- LEFT SIDEBAR - SUBSCRIPTIONS -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-cube"></i> Nitrogen</h2>
+                <button class="collapse-btn" id="collapseSidebar">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+
+            <div class="subscriptions-list">
+                <div class="subscription-item" data-agent="chatgpt">
+                    <div class="agent-info">
+                        <span class="agent-icon chatgpt"><i class="fab fa-openai"></i></span>
+                        <span class="agent-name">ChatGPT</span>
+                    </div>
+                    <div class="agent-controls">
+                        <span class="status-badge active" id="badge-chatgpt">Active</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-chatgpt" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="subscription-item" data-agent="gemini">
+                    <div class="agent-info">
+                        <span class="agent-icon gemini"><i class="fas fa-atom"></i></span>
+                        <span class="agent-name">Gemini</span>
+                    </div>
+                    <div class="agent-controls">
+                        <span class="status-badge active" id="badge-gemini">Active</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-gemini" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="subscription-item" data-agent="deepseek">
+                    <div class="agent-info">
+                        <span class="agent-icon deepseek"><i class="fas fa-brain"></i></span>
+                        <span class="agent-name">DeepSeek</span>
+                    </div>
+                    <div class="agent-controls">
+                        <span class="status-badge active" id="badge-deepseek">Active</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-deepseek" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="subscription-item" data-agent="perplexity">
+                    <div class="agent-info">
+                        <span class="agent-icon perplexity"><i class="fas fa-search"></i></span>
+                        <span class="agent-name">Perplexity</span>
+                    </div>
+                    <div class="agent-controls">
+                        <span class="status-badge active" id="badge-perplexity">Active</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-perplexity" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="subscription-item" data-agent="gpai">
+                    <div class="agent-info">
+                        <span class="agent-icon gpai"><i class="fas fa-calculator"></i></span>
+                        <span class="agent-name">GPAI</span>
+                    </div>
+                    <div class="agent-controls">
+                        <span class="status-badge active" id="badge-gpai">Active</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-gpai" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="subscription-item" data-agent="codex">
+                    <div class="agent-info">
+                        <span class="agent-icon codex"><i class="fas fa-code"></i></span>
+                        <span class="agent-name">Codex</span>
+                    </div>
+                    <div class="agent-controls">
+                        <span class="status-badge active" id="badge-codex">Active</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-codex" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="memory-indicator">
+                    <i class="fas fa-database"></i>
+                    <span>Session Memory Active</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <!-- TOP AREA - SEARCH BAR -->
+            <div class="search-section">
+                <div class="search-container glass-panel">
+                    <i class="fas fa-search search-icon"></i>
+                    <input
+                        type="text"
+                        id="contextSearch"
+                        placeholder="Search for context, topics, or keywords (Bing-style)..."
+                        autocomplete="off"
+                    >
+                    <button id="searchBtn" class="search-btn">Search</button>
+                </div>
+
+                <!-- SEARCH RESULTS -->
+                <div id="searchResults" class="search-results hidden">
+                    <div class="results-header">
+                        <h3>Contextual Results</h3>
+                        <span id="resultCount">0 results</span>
+                    </div>
+                    <div id="resultsContainer" class="results-grid"></div>
+                </div>
+            </div>
+
+            <!-- MIDDLE AREA - RESPONSE PANEL -->
+            <div class="response-panel glass-panel">
+                <div class="response-header">
+                    <div class="agent-indicator" id="agentIndicator">
+                        <span class="agent-badge" id="agentBadge">ChatGPT</span>
+                        <span class="routing-reason" id="routingReason">Ready</span>
+                    </div>
+                    <div class="response-actions">
+                        <span class="status-log" id="statusLog">
+                            <i class="fas fa-circle"></i> System Ready
+                        </span>
+                    </div>
+                </div>
+
+                <div class="response-content" id="responseContent">
+                    <div class="welcome-message">
+                        <i class="fas fa-robot"></i>
+                        <h3>AI Engine Agent Ready</h3>
+                        <p>Your smart router to multiple AI services. Type a prompt below to begin.</p>
+                        <div class="router-decision-demo">
+                            <span>Routing will be determined by intent classification</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HISTORY PANEL (BONUS FEATURE) -->
+            <div class="history-panel glass-panel" id="historyPanel">
+                <div class="history-header">
+                    <h4><i class="fas fa-history"></i> Request History</h4>
+                    <button id="clearHistoryBtn" class="clear-history-btn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <div id="historyList" class="history-list"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- BOTTOM AREA - FIXED PROMPT BAR -->
+    <div class="prompt-bar-container">
+        <div class="prompt-bar glass-panel">
+            <div class="input-wrapper">
+                <textarea
+                    id="promptInput"
+                    placeholder="Ask AI Engine Agent... (e.g., 'Explain quantum computing in detail' or 'Write a Python function')"
+                    rows="1"
+                ></textarea>
+            </div>
+            <div class="prompt-actions">
+                <div id="loadingIndicator" class="loading-indicator hidden">
+                    <div class="spinner"></div>
+                    <span>Routing...</span>
+                </div>
+                <button id="submitPromptBtn" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
